@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import { useTranslation } from '../hooks/useTranslation'
 
 // Create custom blue-themed marker icon using blue marker
 const gymIcon = new Icon({
@@ -19,7 +20,8 @@ const gyms = [
     address: 'Hlavná 15, Bratislava',
     position: [48.1450, 17.1070], // Bratislava city center
     size: 'Large',
-    description: 'Our flagship location with premium amenities'
+    sizeKey: 'large',
+    descriptionKey: 'flagshipLocation'
   },
   {
     id: 2,
@@ -27,26 +29,29 @@ const gyms = [
     address: 'Námestie SNP 10, Bratislava',
     position: [48.1480, 17.1120], // Another location in Bratislava
     size: 'Medium',
-    description: 'Convenient location in the heart of the city'
+    sizeKey: 'medium',
+    descriptionKey: 'convenientLocation'
   }
 ]
 
 export default function GymMap() {
+  const t = useTranslation()
+  
   return (
     <section id="map" className="py-24 relative overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-on-scroll">
           <div className="inline-block mb-4 animate-scale-in">
             <span className="bg-primary-600/20 border border-primary-500/30 text-primary-400 px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary-600/30 transition-all duration-300 transform hover:scale-105">
-              OUR LOCATIONS
+              {t.map.ourLocations}
             </span>
           </div>
           <h2 className="text-5xl md:text-6xl font-light text-white mb-6 animate-on-scroll">
-            Find Us in
-            <span className="block font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent"> Bratislava</span>
+            {t.map.findUsIn}
+            <span className="block font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent"> {t.map.bratislava}</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light animate-on-scroll">
-            Two convenient locations to serve you better. Choose the one that fits your lifestyle.
+            {t.map.description}
           </p>
         </div>
 
@@ -76,7 +81,7 @@ export default function GymMap() {
                           color: 'white'
                         }}
                       >
-                        {gym.size} Facility
+                        {t.map[gym.sizeKey]} {t.map.facility}
                       </span>
                     </div>
                   </Popup>
@@ -98,7 +103,7 @@ export default function GymMap() {
                       ? 'bg-primary-600 text-white' 
                       : 'bg-primary-500/80 text-white'
                   }`}>
-                    {gym.size}
+                    {t.map[gym.sizeKey]}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-400 mb-3 group-hover:text-gray-300 transition-colors duration-300">
@@ -108,7 +113,7 @@ export default function GymMap() {
                   </svg>
                   <p className="font-light">{gym.address}</p>
                 </div>
-                <p className="text-gray-300 leading-relaxed font-light group-hover:text-gray-200 transition-colors duration-300">{gym.description}</p>
+                <p className="text-gray-300 leading-relaxed font-light group-hover:text-gray-200 transition-colors duration-300">{t.map[gym.descriptionKey]}</p>
               </div>
             </div>
           ))}

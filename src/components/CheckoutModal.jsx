@@ -28,20 +28,26 @@ export default function CheckoutModal({ isOpen, onClose, user, selectedPlan, onS
       return
     }
     
-    // Format expiry date
+    // Format expiry date - allow typing and auto-format
     if (name === 'expiryDate') {
+      // Remove all non-digits
       const cleaned = value.replace(/\D/g, '')
-      if (cleaned.length >= 2) {
-        setFormData({ ...formData, [name]: cleaned.slice(0, 2) + '/' + cleaned.slice(2, 4) })
-      } else {
+      
+      // Format as MM/YY
+      if (cleaned.length === 0) {
+        setFormData({ ...formData, [name]: '' })
+      } else if (cleaned.length <= 2) {
         setFormData({ ...formData, [name]: cleaned })
+      } else {
+        setFormData({ ...formData, [name]: cleaned.slice(0, 2) + '/' + cleaned.slice(2, 4) })
       }
       return
     }
     
-    // Limit CVV to 3-4 digits
+    // Limit CVV to 3-4 digits - only allow numbers
     if (name === 'cvv') {
-      setFormData({ ...formData, [name]: value.replace(/\D/g, '').slice(0, 4) })
+      const cleaned = value.replace(/\D/g, '')
+      setFormData({ ...formData, [name]: cleaned.slice(0, 4) })
       return
     }
     
@@ -317,8 +323,10 @@ export default function CheckoutModal({ isOpen, onClose, user, selectedPlan, onS
                     onChange={handleChange}
                     required
                     maxLength={5}
+                    autoComplete="cc-exp"
                     className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500 focus:outline-none"
                     placeholder="MM/YY"
+                    style={{ pointerEvents: 'auto', zIndex: 10 }}
                   />
                 </div>
                 <div>
@@ -330,8 +338,10 @@ export default function CheckoutModal({ isOpen, onClose, user, selectedPlan, onS
                     onChange={handleChange}
                     required
                     maxLength={4}
+                    autoComplete="cc-csc"
                     className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500 focus:outline-none"
                     placeholder="•••"
+                    style={{ pointerEvents: 'auto', zIndex: 10 }}
                   />
                 </div>
               </div>
@@ -440,4 +450,5 @@ export default function CheckoutModal({ isOpen, onClose, user, selectedPlan, onS
     </div>
   )
 }
+
 

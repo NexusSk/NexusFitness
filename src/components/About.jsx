@@ -1,27 +1,31 @@
+import { useTranslation } from '../hooks/useTranslation'
+
 export default function About() {
+  const t = useTranslation()
+  
   const timeline = [
     {
       year: '2018',
-      title: 'The Beginning',
-      content: 'Nexus Fitness was born from a simple belief: everyone deserves access to world-class fitness facilities that inspire transformation. Founded by a group of fitness enthusiasts and entrepreneurs, we set out to create something different - a gym that wasn\'t just about equipment, but about building a community of motivated individuals.',
+      title: t.about.theBeginning,
+      content: t.about.theBeginningContent,
       icon: 'seed'
     },
     {
       year: '2019',
-      title: 'Our First Location',
-      content: 'We opened Nexus Fitness Center in the heart of Bratislava. With over 3,500 square meters of premium space, we invested in the latest equipment, luxurious amenities, and created an environment where members could push their limits. The response was overwhelming - within months, we had thousands of members who shared our passion for fitness.',
+      title: t.about.ourFirstLocation,
+      content: t.about.ourFirstLocationContent,
       icon: 'gym'
     },
     {
       year: '2022',
-      title: 'Expanding Our Reach',
-      content: 'As our community grew, we recognized the need for a more accessible option. We opened Nexus Fitness Express - a compact yet fully-equipped facility designed for those who want premium fitness without the premium footprint. This expansion allowed us to serve even more members while maintaining our commitment to excellence.',
+      title: t.about.expandingReach,
+      content: t.about.expandingReachContent,
       icon: 'rocket'
     },
     {
-      year: 'Today',
-      title: 'Our Mission Today',
-      content: 'Nexus Fitness stands as Bratislava\'s premier fitness destination. We\'re not just a gym - we\'re a movement dedicated to helping people transform their lives through fitness. Whether you\'re a beginner taking your first steps or an athlete training for competition, we provide the tools, support, and environment you need to succeed.',
+      year: t.about.today || 'Today',
+      title: t.about.ourMissionToday,
+      content: t.about.ourMissionTodayContent,
       icon: 'star'
     }
   ]
@@ -32,15 +36,15 @@ export default function About() {
         <div className="text-center mb-20 animate-on-scroll">
           <div className="inline-block mb-4 animate-scale-in">
             <span className="bg-primary-600/20 border border-primary-500/30 text-primary-400 px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary-600/30 transition-all duration-300 transform hover:scale-105">
-              OUR JOURNEY
+              {t.about.ourJourney}
             </span>
           </div>
           <h2 className="text-5xl md:text-6xl font-light mb-6 animate-on-scroll">
-            Our
-            <span className="block font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent"> Story</span>
+            {t.about.our}
+            <span className="block font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent"> {t.about.story}</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light animate-on-scroll">
-            From a vision to a reality - building a fitness community in Bratislava
+            {t.about.description}
           </p>
         </div>
 
@@ -96,15 +100,15 @@ export default function About() {
         <div className="mt-20 text-center animate-on-scroll">
           <div className="relative bg-slate-800/50 border border-slate-700 rounded-3xl p-12 max-w-4xl mx-auto shadow-2xl overflow-hidden hover:border-primary-500/50 transition-all duration-500 hover:shadow-primary-500/10 transform hover:scale-[1.02]">
             <div className="relative z-10">
-              <h3 className="text-4xl md:text-5xl font-light mb-4 text-white">Ready to Start Your Journey?</h3>
+              <h3 className="text-4xl md:text-5xl font-light mb-4 text-white">{t.about.readyToStart}</h3>
               <p className="text-xl mb-8 text-gray-400 max-w-2xl mx-auto font-light">
-                Join thousands of members who have transformed their lives at Nexus Fitness
+                {t.about.joinThousands}
               </p>
               <button
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="group bg-primary-600 text-white px-10 py-5 rounded-xl text-lg font-medium hover:bg-primary-500 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 mx-auto border border-primary-500 hover:shadow-lg hover:shadow-primary-500/30"
               >
-                View Our Plans
+                {t.about.viewOurPlans}
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>

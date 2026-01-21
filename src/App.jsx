@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from './contexts/LanguageContext'
+import { translations } from './translations'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import GymMap from './components/GymMap'
@@ -10,6 +12,8 @@ import CheckoutModal from './components/CheckoutModal'
 import Notification from './components/Notification'
 
 function App() {
+  const { language } = useLanguage()
+  const t = translations[language]
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignUp, setIsSignUp] = useState(false)
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
@@ -100,11 +104,11 @@ function App() {
           onSignUpSuccess={(userData) => {
             setUser(userData)
             localStorage.setItem('nexusFitnessUser', JSON.stringify(userData))
-            setNotification({ message: 'Account created successfully! Welcome to Nexus Fitness!', type: 'success' })
+            setNotification({ message: t.notifications.accountCreated, type: 'success' })
           }}
           onLoginSuccess={(userData) => {
             setUser(userData)
-            setNotification({ message: 'Welcome back! You\'re signed in successfully.', type: 'success' })
+            setNotification({ message: t.notifications.welcomeBack, type: 'success' })
           }}
           onError={(message) => {
             setNotification({ message, type: 'error' })
@@ -129,7 +133,7 @@ function App() {
             }
             setUser(updatedUser)
             localStorage.setItem('nexusFitnessUser', JSON.stringify(updatedUser))
-            setNotification({ message: `Successfully subscribed to ${plan.type} plan!`, type: 'success' })
+            setNotification({ message: `${t.notifications.subscribed} ${plan.type} ${language === 'sk' ? 'plán' : 'plan'}!`, type: 'success' })
           }}
         />
         {notification && (

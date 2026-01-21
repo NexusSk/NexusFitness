@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function UserProfile({ user, onLogout }) {
+  const t = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -24,17 +26,17 @@ export default function UserProfile({ user, onLogout }) {
 
   const getPlanDisplayName = (plan) => {
     const planMap = {
-      monthly: 'Monthly',
-      yearly: 'Yearly',
-      onetime: 'One-Time Entry'
+      monthly: t.pricing.monthly,
+      yearly: t.pricing.yearly,
+      onetime: t.pricing.oneTimeEntry
     }
     return planMap[plan] || plan
   }
 
   const getGymDisplayName = (gymId) => {
     const gymMap = {
-      '1': 'Nexus Fitness Center',
-      '2': 'Nexus Fitness Express'
+      '1': t.pricing.nexusFitnessCenter,
+      '2': t.pricing.nexusFitnessExpress
     }
     return gymMap[gymId] || 'Nexus Fitness'
   }
@@ -79,14 +81,14 @@ export default function UserProfile({ user, onLogout }) {
           </div>
           
           <div className="p-4 border-b border-slate-700">
-            <div className="text-xs text-gray-400 mb-2 font-light">SUBSCRIPTION</div>
+            <div className="text-xs text-gray-400 mb-2 font-light">{t.profile.subscription}</div>
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-white font-medium">{getPlanDisplayName(user.subscription?.plan)}</div>
                 <div className="text-gray-400 text-sm font-light">{getGymDisplayName(user.subscription?.gym)}</div>
               </div>
               <div className="px-3 py-1 bg-primary-600/20 border border-primary-500/30 rounded-lg">
-                <span className="text-primary-400 text-xs font-medium">Active</span>
+                <span className="text-primary-400 text-xs font-medium">{t.profile.active}</span>
               </div>
             </div>
           </div>
@@ -99,7 +101,7 @@ export default function UserProfile({ user, onLogout }) {
               }}
               className="w-full px-4 py-2 text-left text-gray-300 hover:text-white hover:bg-slate-700 rounded-lg transition-colors font-light"
             >
-              Sign Out
+              {t.profile.signOut}
             </button>
           </div>
         </div>
@@ -107,4 +109,5 @@ export default function UserProfile({ user, onLogout }) {
     </div>
   )
 }
+
 

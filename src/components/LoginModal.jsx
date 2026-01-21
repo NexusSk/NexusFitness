@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from '../hooks/useTranslation'
 
 export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onSignUpSuccess, onLoginSuccess, onError }) {
+  const t = useTranslation()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,7 +28,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
       // Validate password match
       if (formData.password !== formData.confirmPassword) {
         if (onError) {
-          onError('Passwords do not match. Please try again.')
+          onError(t.notifications.passwordsDontMatch)
         }
         return
       }
@@ -34,7 +36,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
       // Validate password length
       if (formData.password.length < 6) {
         if (onError) {
-          onError('Password must be at least 6 characters long.')
+          onError(t.notifications.passwordTooShort)
         }
         return
       }
@@ -87,12 +89,12 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
           onClose()
         } else {
           if (onError) {
-            onError('Invalid email or password. Please try again.')
+            onError(t.notifications.invalidCredentials)
           }
         }
       } else {
         if (onError) {
-          onError('No account found. Please sign up first.')
+          onError(t.notifications.noAccountFound)
         }
       }
     }
@@ -128,10 +130,10 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
             </svg>
           </div>
           <h2 className="text-3xl font-light text-white mb-2">
-            {isSignUp ? 'Create Your Account' : 'Welcome Back'}
+            {isSignUp ? t.login.createAccount : t.login.welcomeBack}
           </h2>
           <p className="text-gray-400 font-light">
-            {isSignUp ? 'Start your fitness journey today' : 'Sign in to continue'}
+            {isSignUp ? t.login.startJourney : t.login.signInToContinue}
           </p>
         </div>
 
@@ -139,7 +141,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
           {isSignUp && (
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Full Name
+                {t.login.fullName}
               </label>
               <input
                 type="text"
@@ -157,7 +159,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
-              Email
+              {t.login.email}
             </label>
             <input
               type="email"
@@ -174,7 +176,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
-              Password
+              {t.login.password}
             </label>
             <input
               type="password"
@@ -193,7 +195,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
             <>
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Confirm Password
+                  {t.login.confirmPassword}
                 </label>
                 <input
                   type="password"
@@ -210,7 +212,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Select Gym
+                  {t.login.selectGym}
                 </label>
                 <select
                   name="selectedGym"
@@ -218,14 +220,14 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white"
                 >
-                  <option value="1">Nexus Fitness Center (Large)</option>
-                  <option value="2">Nexus Fitness Express (Medium)</option>
+                  <option value="1">{t.pricing.nexusFitnessCenter}</option>
+                  <option value="2">{t.pricing.nexusFitnessExpress}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Select Plan
+                  {t.login.selectPlan}
                 </label>
                 <select
                   name="selectedPlan"
@@ -233,9 +235,9 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white"
                 >
-                  <option value="monthly">Monthly</option>
-                  <option value="yearly">Yearly</option>
-                  <option value="onetime">One-Time Entry</option>
+                  <option value="monthly">{t.pricing.monthly}</option>
+                  <option value="yearly">{t.pricing.yearly}</option>
+                  <option value="onetime">{t.pricing.oneTimeEntry}</option>
                 </select>
               </div>
             </>
@@ -245,7 +247,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
             type="submit"
             className="w-full bg-primary-600 text-white py-4 rounded-xl font-medium hover:bg-primary-500 transition-all transform hover:scale-105 mt-6"
           >
-            {isSignUp ? 'Create Account & Subscribe' : 'Sign In'}
+            {isSignUp ? t.login.createAccountSubscribe : t.login.signIn}
           </button>
         </form>
 
@@ -254,7 +256,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onS
             onClick={() => setIsSignUp(!isSignUp)}
             className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
           >
-            {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+            {isSignUp ? t.login.alreadyHaveAccount : t.login.dontHaveAccount}
           </button>
         </div>
       </div>

@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { translations } from '../translations'
 import UserProfile from './UserProfile'
 
 export default function Navigation({ onLoginClick, user, onLogout }) {
+  const { language, toggleLanguage } = useLanguage()
+  const t = translations[language]
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -47,25 +51,32 @@ export default function Navigation({ onLoginClick, user, onLogout }) {
               onClick={() => scrollToSection('map')}
               className="px-4 py-2 rounded-lg font-light text-gray-300 hover:text-white transition-all duration-300 hover:bg-slate-800/50 transform hover:scale-105"
             >
-              Locations
+              {t.nav.locations}
             </button>
             <button 
               onClick={() => scrollToSection('gym-info')}
               className="px-4 py-2 rounded-lg font-light text-gray-300 hover:text-white transition-all duration-300 hover:bg-slate-800/50 transform hover:scale-105"
             >
-              Our Gyms
+              {t.nav.ourGyms}
             </button>
             <button 
               onClick={() => scrollToSection('pricing')}
               className="px-4 py-2 rounded-lg font-light text-gray-300 hover:text-white transition-all duration-300 hover:bg-slate-800/50 transform hover:scale-105"
             >
-              Pricing
+              {t.nav.pricing}
             </button>
             <button 
               onClick={() => scrollToSection('about')}
               className="px-4 py-2 rounded-lg font-light text-gray-300 hover:text-white transition-all duration-300 hover:bg-slate-800/50 transform hover:scale-105"
             >
-              Our Story
+              {t.nav.ourStory}
+            </button>
+            <button
+              onClick={toggleLanguage}
+              className="px-4 py-2 rounded-lg font-light text-gray-300 hover:text-white transition-all duration-300 hover:bg-slate-800/50 transform hover:scale-105 border border-slate-700 hover:border-primary-500/50"
+              title={language === 'sk' ? 'Switch to English' : 'Prepnúť na slovenčinu'}
+            >
+              {language === 'sk' ? 'EN' : 'SK'}
             </button>
             {user ? (
               <UserProfile user={user} onLogout={onLogout} />
@@ -74,22 +85,28 @@ export default function Navigation({ onLoginClick, user, onLogout }) {
                 onClick={onLoginClick}
                 className="bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-500 transition-all duration-300 font-medium transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/30"
               >
-                Sign In
+                {t.nav.signIn}
               </button>
             )}
           </div>
-          {user ? (
-            <div className="md:hidden">
-              <UserProfile user={user} onLogout={onLogout} />
-            </div>
-          ) : (
+          <div className="md:hidden flex items-center gap-2">
             <button
-              onClick={onLoginClick}
-              className="md:hidden bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-500 transition-all duration-300 text-sm font-medium transform hover:scale-105"
+              onClick={toggleLanguage}
+              className="px-3 py-2 rounded-lg font-light text-gray-300 hover:text-white transition-all duration-300 hover:bg-slate-800/50 border border-slate-700 text-sm"
             >
-              Sign In
+              {language === 'sk' ? 'EN' : 'SK'}
             </button>
-          )}
+            {user ? (
+              <UserProfile user={user} onLogout={onLogout} />
+            ) : (
+              <button
+                onClick={onLoginClick}
+                className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-500 transition-all duration-300 text-sm font-medium transform hover:scale-105"
+              >
+                {t.nav.signIn}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </nav>

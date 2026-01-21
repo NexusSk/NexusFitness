@@ -1,49 +1,24 @@
+import { useTranslation } from '../hooks/useTranslation'
+
 export default function GymInfo() {
+  const t = useTranslation()
+  
   const gyms = [
     {
       id: 1,
-      name: 'Nexus Fitness Center',
+      name: t.pricing.nexusFitnessCenter,
       size: '3,500 sqm',
-      equipment: [
-        '200+ Cardio Machines',
-        '150+ Strength Training Machines',
-        'Free Weights Area (500kg+)',
-        'Olympic Lifting Platforms',
-        'Functional Training Zone',
-        'Yoga & Pilates Studio',
-        'Group Fitness Classes'
-      ],
-      amenities: [
-        'Premium Sauna',
-        'Steam Room',
-        'Jacuzzi',
-        'Locker Rooms with Showers',
-        'Protein Bar & Café',
-        'Pro Shop',
-        'Personal Training Studio',
-        'Kids Zone',
-        'Parking (200 spaces)'
-      ],
+      equipment: t.gymInfo.center.equipment,
+      amenities: t.gymInfo.center.amenities,
       icon: 'dumbbell',
       color: 'from-primary-600 to-primary-800'
     },
     {
       id: 2,
-      name: 'Nexus Fitness Express',
+      name: t.pricing.nexusFitnessExpress,
       size: '1,200 sqm',
-      equipment: [
-        '80+ Cardio Machines',
-        '60+ Strength Training Machines',
-        'Free Weights Area (300kg+)',
-        'Functional Training Zone',
-        'Group Fitness Classes'
-      ],
-      amenities: [
-        'Sauna',
-        'Locker Rooms with Showers',
-        'Protein Bar',
-        'Parking (50 spaces)'
-      ],
+      equipment: t.gymInfo.express.equipment,
+      amenities: t.gymInfo.express.amenities,
       icon: 'fitness',
       color: 'from-primary-400 to-primary-600'
     }
@@ -55,15 +30,15 @@ export default function GymInfo() {
         <div className="text-center mb-20 animate-on-scroll">
           <div className="inline-block mb-4 animate-scale-in">
             <span className="bg-primary-600/20 border border-primary-500/30 text-primary-400 px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary-600/30 transition-all duration-300 transform hover:scale-105">
-              PREMIUM FACILITIES
+              {t.gymInfo.premiumFacilities}
             </span>
           </div>
           <h2 className="text-5xl md:text-6xl font-light text-white mb-6 animate-on-scroll">
-            World-Class
-            <span className="block font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent"> Facilities</span>
+            {t.gymInfo.worldClass}
+            <span className="block font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent"> {t.gymInfo.facilities}</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light animate-on-scroll">
-            Every detail designed to help you achieve your fitness goals
+            {t.gymInfo.description}
           </p>
         </div>
 
@@ -107,7 +82,7 @@ export default function GymInfo() {
                       <svg className="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                       </svg>
-                      Size: {gym.size}
+                      {t.gymInfo.size}: {gym.size}
                     </p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
@@ -116,7 +91,7 @@ export default function GymInfo() {
                           <svg className="w-7 h-7 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                           </svg>
-                          Equipment
+                          {t.gymInfo.equipment}
                         </h4>
                         <ul className="space-y-3">
                           {gym.equipment.map((item, i) => (
@@ -136,7 +111,7 @@ export default function GymInfo() {
                           <svg className="w-7 h-7 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                           </svg>
-                          Amenities
+                          {t.gymInfo.amenities}
                         </h4>
                         <ul className="space-y-3">
                           {gym.amenities.map((item, i) => (
