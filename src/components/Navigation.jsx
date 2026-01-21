@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import UserProfile from './UserProfile'
 
-export default function Navigation({ onLoginClick }) {
+export default function Navigation({ onLoginClick, user, onLogout }) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -12,7 +13,17 @@ export default function Navigation({ onLoginClick }) {
   }, [])
 
   const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const element = document.getElementById(id)
+    if (element) {
+      const offset = 80 // Account for fixed navbar
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
   }
 
   return (
@@ -56,19 +67,29 @@ export default function Navigation({ onLoginClick }) {
             >
               Our Story
             </button>
+            {user ? (
+              <UserProfile user={user} onLogout={onLogout} />
+            ) : (
+              <button
+                onClick={onLoginClick}
+                className="bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-500 transition-all duration-300 font-medium transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/30"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
+          {user ? (
+            <div className="md:hidden">
+              <UserProfile user={user} onLogout={onLogout} />
+            </div>
+          ) : (
             <button
               onClick={onLoginClick}
-              className="bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-500 transition-all duration-300 font-medium transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/30"
+              className="md:hidden bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-500 transition-all duration-300 text-sm font-medium transform hover:scale-105"
             >
               Sign In
             </button>
-          </div>
-          <button
-            onClick={onLoginClick}
-            className="md:hidden bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-500 transition-all duration-300 text-sm font-medium transform hover:scale-105"
-          >
-            Sign In
-          </button>
+          )}
         </div>
       </div>
     </nav>

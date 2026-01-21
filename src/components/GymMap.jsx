@@ -2,9 +2,9 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-// Custom marker icons
+// Create custom blue-themed marker icon using blue marker
 const gymIcon = new Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -57,22 +57,25 @@ export default function GymMap() {
               zoom={13}
               style={{ height: '100%', width: '100%' }}
               scrollWheelZoom={true}
+              className="rounded-3xl overflow-hidden"
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
               />
               {gyms.map((gym) => (
                 <Marker key={gym.id} position={gym.position} icon={gymIcon}>
                   <Popup>
-                    <div className="p-3">
-                      <h3 className="font-bold text-lg text-primary-600 mb-1">{gym.name}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{gym.address}</p>
-                      <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                        gym.size === 'Large' 
-                          ? 'bg-primary-600 text-white' 
-                          : 'bg-primary-200 text-primary-800'
-                      }`}>
+                    <div className="p-1">
+                      <h3 className="font-bold text-lg mb-1" style={{ color: '#60a5fa' }}>{gym.name}</h3>
+                      <p className="text-sm mb-2" style={{ color: '#94a3b8' }}>{gym.address}</p>
+                      <span 
+                        className="inline-block px-3 py-1 rounded-full text-xs font-medium"
+                        style={{ 
+                          background: gym.size === 'Large' ? '#3b82f6' : '#60a5fa',
+                          color: 'white'
+                        }}
+                      >
                         {gym.size} Facility
                       </span>
                     </div>

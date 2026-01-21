@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function Pricing({ onSubscribe }) {
+export default function Pricing({ onSubscribe, onCheckout, user }) {
   const [selectedGym, setSelectedGym] = useState(1) // 1 for Center, 2 for Express
 
   const pricingPlans = {
@@ -205,14 +205,28 @@ export default function Pricing({ onSubscribe }) {
                 </ul>
 
                 <button
-                  onClick={onSubscribe}
-                  className={`w-full py-4 rounded-xl font-medium text-lg transition-all transform hover:scale-105 ${
-                    plan.popular
-                      ? 'bg-primary-600 text-white hover:bg-primary-500'
-                      : 'bg-slate-700 text-white hover:bg-slate-600 border border-slate-600'
+                  onClick={() => {
+                    if (user) {
+                      // User is signed in, go to checkout with plan details
+                      onCheckout({
+                        ...plan,
+                        gym: selectedGym
+                      })
+                    } else {
+                      // User not signed in, open login
+                      onSubscribe()
+                    }
+                  }}
+                  className={`w-full py-4 rounded-xl font-medium text-lg transition-all ${
+                    !user 
+                      ? 'bg-slate-700/50 text-gray-400 cursor-not-allowed'
+                      : plan.popular
+                      ? 'bg-primary-600 text-white hover:bg-primary-500 transform hover:scale-105'
+                      : 'bg-slate-700 text-white hover:bg-slate-600 border border-slate-600 transform hover:scale-105'
                   }`}
+                  disabled={!user}
                 >
-                  Get Started
+                  {user ? 'Get Started' : 'Sign Up to Subscribe'}
                 </button>
               </div>
             </div>

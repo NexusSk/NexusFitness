@@ -6,6 +6,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    -webkit-overflow-scrolling: touch;
   }
   
   body {
@@ -14,10 +15,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-  }
-  
-  * {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
   }
 }
 
@@ -45,5 +43,131 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Enhanced smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  /* Smooth scroll with easing */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+}
+
+/* Map styling - Blue theme matching the site */
+.leaflet-container {
+  background: #1e293b !important;
+}
+
+/* Apply blue tint to map tiles */
+.leaflet-tile-pane {
+  filter: saturate(0.7) brightness(0.85) sepia(0.2) hue-rotate(180deg);
+}
+
+/* Popup styling matching site theme */
+.leaflet-popup-content-wrapper {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-radius: 1rem !important;
+  border: 1px solid #3b82f6 !important;
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.25) !important;
+}
+
+.leaflet-popup-content {
+  color: #f1f5f9 !important;
+  margin: 12px 16px !important;
+}
+
+.leaflet-popup-tip {
+  background: #1e293b !important;
+  border-left: 1px solid #3b82f6 !important;
+  border-bottom: 1px solid #3b82f6 !important;
+}
+
+.leaflet-popup-close-button {
+  color: #94a3b8 !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #f1f5f9 !important;
+}
+
+/* Zoom controls matching site theme */
+.leaflet-control-zoom {
+  border: 1px solid #334155 !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.leaflet-control-zoom a {
+  background: #1e293b !important;
+  color: #60a5fa !important;
+  border: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.leaflet-control-zoom a:first-child {
+  border-bottom: 1px solid #334155 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #334155 !important;
+  color: #93c5fd !important;
+}
+
+/* Attribution styling */
+.leaflet-control-attribution {
+  background: rgba(30, 41, 59, 0.9) !important;
+  color: #64748b !important;
+  font-size: 10px !important;
+  padding: 4px 8px !important;
+  border-radius: 4px 0 0 0 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #60a5fa !important;
 }
 

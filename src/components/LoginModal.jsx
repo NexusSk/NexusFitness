@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
+export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp, onSignUpSuccess, onLoginSuccess, onError }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,13 +10,92 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
     selectedPlan: 'monthly'
   })
 
+  // Reset to Sign In when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setIsSignUp(false)
+    }
+  }, [isOpen, setIsSignUp])
+
   if (!isOpen) return null
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // In a real app, this would handle authentication
-    alert(`Thank you! ${isSignUp ? 'Account created' : 'Logged in'} successfully. Subscription process would continue here.`)
-    onClose()
+    
+    if (isSignUp) {
+      // Validate password match
+      if (formData.password !== formData.confirmPassword) {
+        if (onError) {
+          onError('Passwords do not match. Please try again.')
+        }
+        return
+      }
+
+      // Validate password length
+      if (formData.password.length < 6) {
+        if (onError) {
+          onError('Password must be at least 6 characters long.')
+        }
+        return
+      }
+
+      // Create user object with subscription
+      const userData = {
+        name: formData.name,
+        email: formData.email,
+        subscription: {
+          plan: formData.selectedPlan,
+          gym: formData.selectedGym
+        }
+      }
+
+      // Call success callback
+      if (onSignUpSuccess) {
+        onSignUpSuccess(userData)
+      }
+      
+      // Reset form
+      setFormData({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        selectedGym: '1',
+        selectedPlan: 'monthly'
+      })
+      
+      onClose()
+    } else {
+      // Login logic - check if user exists in localStorage
+      const savedUser = localStorage.getItem('nexusFitnessUser')
+      if (savedUser) {
+        const userData = JSON.parse(savedUser)
+        // Simple email check (in real app, this would be server-side with password verification)
+        if (userData.email === formData.email) {
+          if (onLoginSuccess) {
+            onLoginSuccess(userData)
+          }
+          // Reset form
+          setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            name: '',
+            selectedGym: '1',
+            selectedPlan: 'monthly'
+          })
+          onClose()
+        } else {
+          if (onError) {
+            onError('Invalid email or password. Please try again.')
+          }
+        }
+      } else {
+        if (onError) {
+          onError('No account found. Please sign up first.')
+        }
+      }
+    }
   }
 
   const handleChange = (e) => {
@@ -56,7 +135,7 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
+        <form onSubmit={handleSubmit} className="relative z-10 space-y-5" style={{ pointerEvents: 'auto' }}>
           {isSignUp && (
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -68,8 +147,10 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
                 value={formData.name}
                 onChange={handleChange}
                 required={isSignUp}
-                className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500"
+                autoComplete="name"
+                className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500 focus:outline-none"
                 placeholder="John Doe"
+                style={{ pointerEvents: 'auto', zIndex: 10 }}
               />
             </div>
           )}
@@ -84,8 +165,10 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500"
+              autoComplete="email"
+              className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500 focus:outline-none"
               placeholder="your@email.com"
+              style={{ pointerEvents: 'auto', zIndex: 10 }}
             />
           </div>
 
@@ -99,8 +182,10 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500"
+              autoComplete="current-password"
+              className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500 focus:outline-none"
               placeholder="••••••••"
+              style={{ pointerEvents: 'auto', zIndex: 10 }}
             />
           </div>
 
@@ -116,8 +201,10 @@ export default function LoginModal({ isOpen, onClose, isSignUp, setIsSignUp }) {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required={isSignUp}
-                  className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500"
+                  autoComplete="new-password"
+                  className="w-full px-4 py-3 border border-slate-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-slate-900 text-white placeholder-gray-500 focus:outline-none"
                   placeholder="••••••••"
+                  style={{ pointerEvents: 'auto', zIndex: 10 }}
                 />
               </div>
 

@@ -6,10 +6,24 @@ import GymInfo from './components/GymInfo'
 import Pricing from './components/Pricing'
 import About from './components/About'
 import LoginModal from './components/LoginModal'
+import CheckoutModal from './components/CheckoutModal'
+import Notification from './components/Notification'
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignUp, setIsSignUp] = useState(false)
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState(null)
+  const [user, setUser] = useState(null)
+  const [notification, setNotification] = useState(null)
+
+  // Load user from localStorage on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem('nexusFitnessUser')
+    if (savedUser) {
+      setUser(JSON.parse(savedUser))
+    }
+  }, [])
 
   useEffect(() => {
     // Smooth scroll animation observer
@@ -58,18 +72,73 @@ function App() {
       </div>
       
       <div className="relative z-10">
-        <Navigation onLoginClick={() => setIsLoginOpen(true)} />
+        <Navigation 
+          onLoginClick={() => setIsLoginOpen(true)} 
+          user={user}
+          onLogout={() => {
+            setUser(null)
+            localStorage.removeItem('nexusFitnessUser')
+          }}
+        />
         <Hero onGetStarted={() => setIsLoginOpen(true)} />
         <GymMap />
         <GymInfo />
-        <Pricing onSubscribe={() => setIsLoginOpen(true)} />
+        <Pricing 
+          onSubscribe={() => setIsLoginOpen(true)} 
+          onCheckout={(plan) => {
+            setSelectedPlan(plan)
+            setIsCheckoutOpen(true)
+          }}
+          user={user}
+        />
         <About />
         <LoginModal 
           isOpen={isLoginOpen} 
           onClose={() => setIsLoginOpen(false)}
           isSignUp={isSignUp}
           setIsSignUp={setIsSignUp}
+          onSignUpSuccess={(userData) => {
+            setUser(userData)
+            localStorage.setItem('nexusFitnessUser', JSON.stringify(userData))
+            setNotification({ message: 'Account created successfully! Welcome to Nexus Fitness!', type: 'success' })
+          }}
+          onLoginSuccess={(userData) => {
+            setUser(userData)
+            setNotification({ message: 'Welcome back! You\'re signed in successfully.', type: 'success' })
+          }}
+          onError={(message) => {
+            setNotification({ message, type: 'error' })
+          }}
         />
+        <CheckoutModal
+          isOpen={isCheckoutOpen}
+          onClose={() => {
+            setIsCheckoutOpen(false)
+            setSelectedPlan(null)
+          }}
+          user={user}
+          selectedPlan={selectedPlan}
+          onSuccess={(plan) => {
+            // Update user subscription in localStorage
+            const updatedUser = {
+              ...user,
+              subscription: {
+                plan: plan.type.toLowerCase(),
+                gym: String(plan.gym)
+              }
+            }
+            setUser(updatedUser)
+            localStorage.setItem('nexusFitnessUser', JSON.stringify(updatedUser))
+            setNotification({ message: `Successfully subscribed to ${plan.type} plan!`, type: 'success' })
+          }}
+        />
+        {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+            onClose={() => setNotification(null)}
+          />
+        )}
       </div>
     </div>
   )
