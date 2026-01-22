@@ -19,7 +19,7 @@ export default function Hero({ onGetStarted }) {
           </div>
 
           {/* Massive, alluring heading with dramatic effects */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold mb-6 animate-fade-in-up leading-[0.9] tracking-tight" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold mb-16 md:mb-20 lg:mb-24 animate-fade-in-up leading-[0.9] tracking-tight" style={{ animationDelay: '0.1s' }}>
             <span className="block relative">
               <span className="relative z-10 bg-gradient-to-r from-white via-primary-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
                 {t.hero.transform}
@@ -50,7 +50,7 @@ export default function Hero({ onGetStarted }) {
           </h1>
           
           {/* Enhanced CTA buttons with dramatic effects */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up mt-8 md:mt-12" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onGetStarted}
               className="group relative bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 text-white px-10 py-5 rounded-xl text-lg font-bold hover:from-primary-500 hover:via-primary-400 hover:to-primary-500 transition-all duration-500 border-2 border-primary-400/50 transform hover:scale-110 hover:shadow-2xl hover:shadow-primary-500/50 overflow-hidden"
