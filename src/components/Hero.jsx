@@ -49,13 +49,6 @@ export default function Hero({ onGetStarted }) {
             </span>
           </h1>
           
-          {/* Enhanced description with better typography */}
-          <p className="text-xl md:text-2xl lg:text-3xl mb-16 text-gray-300 max-w-3xl mx-auto font-light leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <span className="bg-gradient-to-r from-gray-300 via-white to-gray-300 bg-clip-text text-transparent">
-              {t.hero.description}
-            </span>
-          </p>
-          
           {/* Enhanced CTA buttons with dramatic effects */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <button
