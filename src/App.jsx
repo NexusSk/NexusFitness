@@ -3,6 +3,7 @@ import { useLanguage } from './contexts/LanguageContext'
 import { translations } from './translations'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
+import Stats from './components/Stats'
 import GymMap from './components/GymMap'
 import GymInfo from './components/GymInfo'
 import Pricing from './components/Pricing'
@@ -85,6 +86,7 @@ function App() {
           }}
         />
         <Hero onGetStarted={() => setIsLoginOpen(true)} />
+        <Stats />
         <GymMap />
         <GymInfo />
         <Pricing 

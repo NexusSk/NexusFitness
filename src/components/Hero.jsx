@@ -9,60 +9,74 @@ export default function Hero({ onGetStarted }) {
     <section className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          {/* Minimal badge with animation */}
-          <div className="inline-flex items-center gap-2 mb-12 animate-fade-in-up">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary-500 animate-slide-in-left"></div>
-            <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">{t.hero.premiumFitness}</span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary-500 animate-slide-in-right"></div>
+          {/* Premium badge with enhanced animation */}
+          <div className="inline-flex items-center gap-3 mb-16 animate-fade-in-up">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary-500 to-primary-400 animate-slide-in-left"></div>
+            <span className="text-sm font-semibold text-primary-400 uppercase tracking-[0.2em] px-4 py-2 border border-primary-500/30 rounded-full bg-primary-500/5 backdrop-blur-sm">
+              {t.hero.premiumFitness}
+            </span>
+            <div className="h-px w-16 bg-gradient-to-l from-transparent via-primary-500 to-primary-400 animate-slide-in-right"></div>
           </div>
 
-          {/* Minimal, modern heading with stagger animation */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light mb-8 animate-fade-in-up leading-tight tracking-tight" style={{ animationDelay: '0.1s' }}>
-            {t.hero.transform}
-            <br />
-            <span className="font-normal bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]">
-              {t.hero.yourBody}
+          {/* Massive, alluring heading with dramatic effects */}
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold mb-6 animate-fade-in-up leading-[0.9] tracking-tight" style={{ animationDelay: '0.1s' }}>
+            <span className="block relative">
+              <span className="relative z-10 bg-gradient-to-r from-white via-primary-100 to-white bg-clip-text text-transparent drop-shadow-2xl">
+                {t.hero.transform}
+              </span>
+              {/* Glow effect behind text */}
+              <span className="absolute inset-0 bg-gradient-to-r from-primary-400 via-primary-300 to-primary-400 bg-clip-text text-transparent blur-xl opacity-60 animate-pulse"></span>
+            </span>
+            <span className="block relative mt-2 isolate">
+              <span 
+                className="relative z-10 font-black bg-clip-text text-transparent drop-shadow-2xl"
+                style={{
+                  backgroundImage: 'linear-gradient(90deg, rgb(96, 165, 250), rgb(125, 211, 252), rgb(59, 130, 246), rgb(125, 211, 252), rgb(96, 165, 250))',
+                  backgroundSize: '200% 100%',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  animation: 'shimmer 3s linear infinite',
+                  willChange: 'background-position'
+                }}
+              >
+                {t.hero.yourBody}
+              </span>
+              {/* Single optimized glow layer - reduced opacity to prevent glitches */}
+              <span className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-r from-primary-500/30 via-primary-400/40 to-primary-600/30 blur-2xl opacity-50" style={{ 
+                animation: 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                willChange: 'opacity'
+              }}></span>
             </span>
           </h1>
           
-          {/* Clean description with animation */}
-          <p className="text-lg md:text-xl mb-12 text-gray-400 max-w-2xl mx-auto font-light leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            {t.hero.description}
+          {/* Enhanced description with better typography */}
+          <p className="text-xl md:text-2xl lg:text-3xl mb-16 text-gray-300 max-w-3xl mx-auto font-light leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <span className="bg-gradient-to-r from-gray-300 via-white to-gray-300 bg-clip-text text-transparent">
+              {t.hero.description}
+            </span>
           </p>
           
-          {/* Minimal CTA buttons with hover effects */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up mb-24" style={{ animationDelay: '0.3s' }}>
+          {/* Enhanced CTA buttons with dramatic effects */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onGetStarted}
-              className="group relative bg-primary-600 text-white px-8 py-4 rounded-lg text-base font-medium hover:bg-primary-500 transition-all duration-300 border border-primary-500/50 transform hover:scale-105 hover:shadow-lg hover:shadow-primary-500/30"
+              className="group relative bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 text-white px-10 py-5 rounded-xl text-lg font-bold hover:from-primary-500 hover:via-primary-400 hover:to-primary-500 transition-all duration-500 border-2 border-primary-400/50 transform hover:scale-110 hover:shadow-2xl hover:shadow-primary-500/50 overflow-hidden"
             >
-              {t.hero.getStarted}
-              <svg className="inline-block w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              {/* Animated background shine */}
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+              <span className="relative z-10 flex items-center">
+                {t.hero.getStarted}
+                <svg className="inline-block w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
             </button>
             <button
               onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-              className="text-gray-400 hover:text-white px-8 py-4 rounded-lg text-base font-medium transition-all duration-300 border border-gray-700 hover:border-primary-500/50 transform hover:scale-105"
+              className="group relative text-gray-300 hover:text-white px-10 py-5 rounded-xl text-lg font-semibold transition-all duration-500 border-2 border-gray-600 hover:border-primary-500/70 bg-gray-900/30 hover:bg-gray-900/50 backdrop-blur-sm transform hover:scale-110 hover:shadow-xl hover:shadow-primary-500/20"
             >
-              {t.hero.viewPlans}
+              <span className="relative z-10">{t.hero.viewPlans}</span>
             </button>
-          </div>
-
-          {/* Minimal stats with counter animation */}
-          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12 border-t border-gray-800 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <div className="text-center transform hover:scale-110 transition-transform duration-300">
-              <div className="text-3xl md:text-4xl font-light text-white mb-1">10K+</div>
-              <div className="text-xs text-gray-500 uppercase tracking-wider">{t.hero.members}</div>
-            </div>
-            <div className="text-center transform hover:scale-110 transition-transform duration-300">
-              <div className="text-3xl md:text-4xl font-light text-white mb-1">2</div>
-              <div className="text-xs text-gray-500 uppercase tracking-wider">{t.hero.locations}</div>
-            </div>
-            <div className="text-center transform hover:scale-110 transition-transform duration-300">
-              <div className="text-3xl md:text-4xl font-light text-white mb-1">24/7</div>
-              <div className="text-xs text-gray-500 uppercase tracking-wider">{t.hero.access}</div>
-            </div>
           </div>
         </div>
       </div>

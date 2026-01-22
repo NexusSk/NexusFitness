@@ -34,7 +34,7 @@ export default {
         'float': 'float 3s ease-in-out infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'gradient': 'gradient 8s ease infinite',
-        'shimmer': 'shimmer 2s linear infinite',
+        'shimmer': 'shimmer 3s linear infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
         'glow-slow': 'glow 4s ease-in-out infinite alternate',
         'drift': 'drift 20s ease-in-out infinite',
@@ -68,8 +68,8 @@ export default {
           '50%': { backgroundPosition: '100% 50%' },
         },
         shimmer: {
-          '0%': { backgroundPosition: '-1000px 0' },
-          '100%': { backgroundPosition: '1000px 0' },
+          '0%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '200% 50%' },
         },
         glow: {
           '0%': { opacity: '0.3', transform: 'scale(1)' },
